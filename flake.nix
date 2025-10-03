@@ -341,6 +341,7 @@
           omen-15-en1007sa = import ./omen/15-en1007sa;
           omen-15-en0002np = import ./omen/15-en0002np;
           onenetbook-4 = import ./onenetbook/4;
+          orion-o6 = import ./radxa/orion-o6;
           olimex-teres_i = import ./olimex/teres_i;
           pcengines-apu = import ./pcengines/apu;
           pine64-pinebook-pro = import ./pine64/pinebook-pro;

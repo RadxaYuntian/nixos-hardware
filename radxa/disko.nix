@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ../cix/disko.nix
     ../rockchip/disko.nix
   ];
 }

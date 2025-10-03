@@ -19,7 +19,7 @@ in
         "console=ttyAMA2,115200n8"
         "acpi=force"
       ];
-      kerenlPatches = [
+      kernelPatches = [
         {
           name = "cix_p1_K6.6_2025Q3_dev";
           patch = pkgs.fetchpatch {

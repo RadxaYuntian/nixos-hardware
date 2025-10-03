@@ -10,9 +10,6 @@ in
 {
   config = lib.mkIf cfg.enable {
     disko = {
-      imageBuilder = {
-        extraPostVM = cfg.diskoExtraPostVM;
-      };
       memSize = lib.mkDefault 4096; # Default 1024 MB will throw "Cannot allocate memory" error
       devices.disk.main = {
         type = "disk";

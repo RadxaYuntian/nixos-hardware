@@ -14,19 +14,10 @@ in
 
   config = lib.mkIf cfg.enable {
     boot = {
-      kernelPackages = lib.mkOverride 900 pkgs.linuxPackages_6_6;
+      kernelPackages = lib.mkOverride 900 (pkgs.linuxPackagesFor (pkgs.callPackage ./kernel.nix {}));
       kernelParams = [
         "console=ttyAMA2,115200n8"
         "acpi=force"
-      ];
-      kernelPatches = [
-        {
-          name = "cix_p1_K6.6_2025Q3_dev";
-          patch = pkgs.fetchpatch {
-            url = "https://github.com/radxa/kernel/commit/fd1a9d06cef85f16a4dcb16061a9128437e235f4.patch";
-            sha256 = "sha256-Kd6JxXaHfE/AUvQF7FRzjU1ELcz2baGocL1EbY68g8k=";
-          };
-        }
       ];
     };
 

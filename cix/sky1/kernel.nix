@@ -1,0 +1,33 @@
+{
+  lib,
+  fetchFromGitHub,
+  buildLinux,
+  ...
+}@args:
+
+let
+  modDirVersion = "6.6.89";
+  rev = "fd1a9d06cef85f16a4dcb16061a9128437e235f4";
+  hash = "";
+
+  args' =
+    {
+      version = "${modDirVersion}-sky1";
+      inherit modDirVersion;
+      pname = "linux-sky1";
+
+      src = fetchFromGitHub {
+        owner = "radxa";
+        repo = "kernel";
+        inherit rev hash;
+      };
+
+      defconfig = "defconfig cix.config";
+
+      isLTS = true;
+
+      ignoreConfigErrors = false;
+    }
+    // (args.argsOverride or { });
+in
+buildLinux args'

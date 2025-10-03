@@ -19,7 +19,7 @@ in
 
   config = lib.mkIf cfg.enable {
     boot = {
-      kernelPackages = lib.mkOverride 500 pkgs.linuxPackages_latest;
+      kernelPackages = lib.mkOverride 990 pkgs.linuxPackages_latest;
       loader.systemd-boot.enable = lib.mkDefault true;
     };
   };

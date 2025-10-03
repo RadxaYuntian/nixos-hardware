@@ -14,7 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     boot = {
-      kernelPackages = lib.mkOverride 600 pkgs.linuxPackages_6_6;
+      kernelPackages = lib.mkOverride 900 pkgs.linuxPackages_6_6;
       kernelParams = [
         "console=ttyAMA2,115200n8"
         "acpi=force"

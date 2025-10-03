@@ -26,7 +26,7 @@ let
 
       isLTS = true;
 
-      ignoreConfigErrors = false;
+      ignoreConfigErrors = true;
     }
     // (args.argsOverride or { });
 in

@@ -22,7 +22,6 @@ definition of "support":
 ## Characteristic of the default profiles
 
 * Using `linuxPackages_latest`
-* `bcachefs` rootfs with zstd compression and password-less encryption enabled
 * EFI boot chain provided by `systemd-boot`
 * Default serial console enabled with baud rate matches the platform firmware
 * No automatic partition expansion, as the module is only focusing on hardware

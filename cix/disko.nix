@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.hardware.rockchip;
+  cfg = config.hardware.cix;
 in
 {
   config = lib.mkIf cfg.enable {

@@ -22,8 +22,6 @@ in
           partitions = {
             ESP = {
               type = "EF00";
-              # Firmware backoff
-              start = "16M";
               size = "1G";
               content = {
                 type = "filesystem";

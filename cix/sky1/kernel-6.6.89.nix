@@ -22,7 +22,18 @@ let
         inherit rev hash;
       };
 
+      kernelPatches = [
+        {
+          name = "fix-fwnode_regulator";
+          patch = ./fix-fwnode_regulator.patch;
+        }
+      ];
+
       defconfig = "defconfig cix.config";
+
+      structuredExtraConfig = with lib.kernel; {
+        CIX_CORE_CTL = lib.mkForce no;
+      };
 
       isLTS = true;
 

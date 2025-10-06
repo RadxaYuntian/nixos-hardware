@@ -22,7 +22,33 @@ let
         inherit rev hash;
       };
 
+      kernelPatches = [
+        {
+          name = "fix-fwnode_regulator";
+          patch = ./fix-fwnode_regulator.patch;
+        }
+        {
+          name = "fix-cix-ec";
+          patch = ./fix-cix-ec.patch;
+        }
+        {
+          name = "incompatible-pointer";
+          patch = ./incompatible-pointer.patch;
+        }
+      ];
+
       defconfig = "defconfig cix.config";
+      structuredExtraConfig = with lib.kernel; {
+        # Referencing non existing funciton
+        CIX_CORE_CTL = lib.mkForce no;
+        # Conflicting with CONFIG_SND_HDACODEC_REALTEK
+        SND_HDA = lib.mkForce no;
+        SND_HDA_CODEC_REALTEK = lib.mkForce no;
+        # Extra SND_HDA dependents
+        SND_HDA_TEGRA = lib.mkForce no;
+        SND_HDA_INTEL = lib.mkForce no;
+        SND_SOC_HDA = lib.mkForce no;
+      };
 
       isLTS = true;
 

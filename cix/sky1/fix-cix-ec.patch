@@ -1,0 +1,66 @@
+diff --git a/drivers/platform/chrome/cros_ec.c b/drivers/platform/chrome/cros_ec.c
+index 9874d2dd5f69..802da206726f 100644
+--- a/drivers/platform/chrome/cros_ec.c
++++ b/drivers/platform/chrome/cros_ec.c
+@@ -79,7 +79,7 @@ static bool cros_ec_handle_event(struct cros_ec_device *ec_dev)
+ 	return ec_has_more_events;
+ }
+ 
+-#ifdef CONFIG_CIX_EC
++#if 1
+ /**
+  * cix_ec_get_irq_info() - get irq info from EC
+  * @ec_dev: Device which raise the irq
+@@ -121,7 +121,7 @@ int cix_ec_get_irq_info(struct cros_ec_device *ec_dev)
+ irqreturn_t cros_ec_irq_thread(int irq, void *data)
+ {
+ 	struct cros_ec_device *ec_dev = data;
+-#ifdef CONFIG_CIX_EC
++#if 1
+ 	int rc = cix_ec_get_irq_info(ec_dev);
+ 	if (rc < 0)
+ 		return IRQ_NONE;
+@@ -254,7 +254,7 @@ int cros_ec_register(struct cros_ec_device *ec_dev)
+ 		err = devm_request_threaded_irq(dev, ec_dev->irq,
+ 						cros_ec_irq_handler,
+ 						cros_ec_irq_thread,
+-#ifdef CONFIG_CIX_EC
++#if 1
+ 						IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ #else
+ 						IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
+index ecce50093d9f..a4114f0a87ed 100644
+--- a/include/linux/platform_data/cros_ec_commands.h
++++ b/include/linux/platform_data/cros_ec_commands.h
+@@ -6391,7 +6391,7 @@ struct ec_params_usb_pd_mux_ack {
+ #define EC_LPC_ADDR_OLD_PARAM   EC_HOST_CMD_REGION1
+ #define EC_OLD_PARAM_SIZE       EC_HOST_CMD_REGION_SIZE
+ 
+-#ifdef CONFIG_CIX_EC
++#if 1
+ /*****************************************************************************/
+ /* Cix EC commands */
+ 
+@@ -6460,7 +6460,7 @@ struct ec_response_ic_error_info
+ #endif /* CONFIG_CIX_EC_EXCEPTION */
+ #endif /* CONFIG_CIX_EC */
+ 
+-#ifdef CONFIG_CIX_EC
++#if 1
+ #define ec_be16_to_cpu(x) be16_to_cpu(x)
+ #define ec_be32_to_cpu(x) be32_to_cpu(x)
+ #define ec_cpu_to_be16(x) cpu_to_be16(x)
+diff --git a/include/linux/platform_data/cros_ec_proto.h b/include/linux/platform_data/cros_ec_proto.h
+index 63afe0a31a26..198b1445ccdc 100644
+--- a/include/linux/platform_data/cros_ec_proto.h
++++ b/include/linux/platform_data/cros_ec_proto.h
+@@ -198,7 +198,7 @@ struct cros_ec_device {
+ 	struct platform_device *pd;
+ 
+ 	struct blocking_notifier_head panic_notifier;
+-#ifdef CONFIG_CIX_EC
++#if 1
+ 	struct ec_response_int_get_info irq_info;
+ #endif
+ };

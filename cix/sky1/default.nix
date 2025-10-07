@@ -15,10 +15,6 @@ in
   config = lib.mkIf cfg.enable {
     boot = {
       kernelPackages = lib.mkOverride 900 (pkgs.linuxPackagesFor (pkgs.callPackage ./kernel-6.6.10.nix {}));
-      kernelParams = [
-        "console=ttyAMA2,115200n8"
-        "acpi=force"
-      ];
     };
 
     hardware.cix.enable = true;

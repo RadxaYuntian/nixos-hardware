@@ -21,6 +21,7 @@ in
       kernelParams = [
         "console=ttyAMA2,115200n8"
         "acpi=force"
+        "kasan=off"
       ];
     };
   };

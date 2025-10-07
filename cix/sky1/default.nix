@@ -14,7 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     boot = {
-      kernelPackages = lib.mkOverride 900 (pkgs.linuxPackagesFor (pkgs.callPackage ./kernel-6.6.10.nix {}));
+      kernelPackages = lib.mkOverride 900 (pkgs.linuxPackagesFor (pkgs.callPackage ./kernel-6.6.89.nix {}));
     };
 
     hardware.cix.enable = true;

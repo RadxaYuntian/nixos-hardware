@@ -39,7 +39,7 @@ let
 
       defconfig = "defconfig cix.config";
       structuredExtraConfig = with lib.kernel; {
-        # Referencing non existing funciton
+        # Referencing non existing function
         CIX_CORE_CTL = lib.mkForce no;
         # Conflicting with CONFIG_SND_HDACODEC_REALTEK
         SND_HDA = lib.mkForce no;

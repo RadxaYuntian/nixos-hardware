@@ -27,12 +27,27 @@ let
           name = "fix-fwnode_regulator";
           patch = ./fix-fwnode_regulator.patch;
         }
+        {
+          name = "fix-cix-ec";
+          patch = ./fix-cix-ec.patch;
+        }
+        {
+          name = "incompatible-pointer";
+          patch = ./incompatible-pointer.patch;
+        }
       ];
 
       defconfig = "defconfig cix.config";
 
       structuredExtraConfig = with lib.kernel; {
+        # Referencing non existing function
         CIX_CORE_CTL = lib.mkForce no;
+        # drm_gpuvm.h conflict
+        DRM_NOUVEAU = lib.mkForce no;
+        # Non existing DP_CONF_SIGNALLING_SHIFT constant
+        TYPEC_DP_ALTMODE = lib.mkForce no;
+        # Non existing INV_ICM42600_REG_DRIVE_CONFIG constant
+        INV_ICM42600_I2C = lib.mkForce no;
       };
 
       isLTS = true;

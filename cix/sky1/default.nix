@@ -13,8 +13,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    nixpkgs.overlays = [
+      (import ./kernel/overlay.nix)
+    ];
+
     boot = {
-      kernelPackages = lib.mkOverride 900 (pkgs.linuxPackagesFor (pkgs.callPackage ./kernel-6.6.89.nix {}));
+      kernelPackages = lib.mkOverride 900 pkgs.linuxPackages_6_6_89;
     };
 
     hardware.cix.enable = true;

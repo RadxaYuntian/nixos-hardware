@@ -1,10 +1,10 @@
 final: _prev: {
-  linuxKernel = {
-    kernels = {
+  linuxKernel = _prev.linuxKernel // {
+    kernels = _prev.linuxKernel.kernels // {
       linux_6_6_10 = final.callPackage ./linux-6.6.10.nix {};
       linux_6_6_89 = final.callPackage ./linux-6.6.89.nix {};
     };
-    vanillaPackages = {
+    vanillaPackages = _prev.linuxKernel.vanillaPackages // {
       linux_6_6_10 = final.recurseIntoAttrs (final.linuxKernel.packagesFor final.linuxKernel.kernels.linux_6_6_10);
       linux_6_6_89 = final.recurseIntoAttrs (final.linuxKernel.packagesFor final.linuxKernel.kernels.linux_6_6_89);
     };

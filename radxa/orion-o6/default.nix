@@ -10,6 +10,10 @@
   ];
 
   config = {
+    boot.kernelModules = [
+      "r8125"
+    ];
+
     hardware = {
       radxa.enable = true;
       cix = {

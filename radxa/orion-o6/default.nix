@@ -10,8 +10,8 @@
   ];
 
   config = {
-    boot.kernelModules = [
-      "r8125"
+    boot.extraModulePackages = with config.boot.kernelPackages; [
+      r8125
     ];
 
     hardware = {

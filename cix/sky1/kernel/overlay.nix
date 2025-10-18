@@ -6,8 +6,8 @@ final: _prev: {
     };
     vanillaPackages = _prev.linuxKernel.vanillaPackages // {
       linux_6_6_10 = final.recurseIntoAttrs (final.linuxKernel.packagesFor final.linuxKernel.kernels.linux_6_6_10);
-      linux_6_6_89 = final.recurseIntoAttrs (final.linuxKernel.packagesFor final.linuxKernel.kernels.linux_6_6_89) // {
-        cix_gpu_kernel = final.linuxKernel.packages.linux_6_6_89.callPackage ../modules/cix_gpu_kernel { };
+      linux_6_6_89 = (final.recurseIntoAttrs (final.linuxKernel.packagesFor final.linuxKernel.kernels.linux_6_6_89)) // {
+        cix_gpu_kernel = final.linuxKernel.packages.linux_6_6_89.callPackage ./modules/cix_gpu_kernel { };
       };
     };
   };

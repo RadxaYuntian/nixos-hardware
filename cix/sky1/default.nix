@@ -19,6 +19,9 @@ in
 
     boot = {
       kernelPackages = lib.mkOverride 900 pkgs.linuxPackages_6_6_89;
+      extraModulePackages = with config.boot.kernelPackages; [
+        cix_gpu_kernel
+      ];
     };
 
     hardware.cix.enable = true;

@@ -13,19 +13,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    nixpkgs.overlays = [
-      (import ./kernel/overlay.nix)
+    imports = [
+      ./bsp/2025.09
     ];
-
-    boot = {
-      kernelPackages = lib.mkOverride 900 pkgs.linuxPackages_6_6_89;
-      extraModulePackages = with config.boot.kernelPackages; [
-        cix_gpu_kernel
-        cix_isp_driver
-        cix_npu_driver
-        cix_vpu_driver
-      ];
-    };
 
     hardware.cix.enable = true;
   };

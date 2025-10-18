@@ -46,8 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    homepage = "https://gitlab.com/cix-linux/cix_opensource/gpu_kernel";
-    description = "CIX GPU driver";
+    homepage = "https://gitlab.com/cix-linux/cix_opensource/isp_driver";
+    description = "CIX ISP driver";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

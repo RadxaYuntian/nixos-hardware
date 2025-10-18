@@ -55,8 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    homepage = "https://gitlab.com/cix-linux/cix_opensource/gpu_kernel";
-    description = "CIX GPU driver";
+    homepage = "https://gitlab.com/cix-linux/cix_opensource/npu_driver";
+    description = "CIX NPU driver";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

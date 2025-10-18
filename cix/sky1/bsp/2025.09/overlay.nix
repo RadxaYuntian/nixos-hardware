@@ -1,7 +1,7 @@
 final: _prev: {
   linuxKernel = _prev.linuxKernel // {
     kernels = _prev.linuxKernel.kernels // {
-      linux_6_6_89 = final.callPackage ./linux-6.6.89.nix {};
+      linux_6_6_89 = final.callPackage ./kernel {};
     };
     vanillaPackages = _prev.linuxKernel.vanillaPackages // {
       linux_6_6_89 = final.recurseIntoAttrs ((final.linuxKernel.packagesFor final.linuxKernel.kernels.linux_6_6_89).extend (
@@ -16,4 +16,8 @@ final: _prev: {
   };
   linuxPackages_6_6_89 = final.linuxKernel.packages.linux_6_6_89;
   linux_6_6_89 = final.linuxKernel.kernels.linux_6_6_89;
+
+  linuxPackages_cix = final.linuxPackages_6_6_89;
+
+  cix_vpu_firmware = final.callPackage ./firmwares/cix_vpu_firmware {};
 }

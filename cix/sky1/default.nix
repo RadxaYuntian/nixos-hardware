@@ -12,7 +12,7 @@ in
     enable = lib.mkEnableOption "CIX Sky1 support";
 
     bspRelease = lib.mkOption {
-      type = enum [
+      type = lib.types.enum [
         "2025.04"
         "2025.09"
       ];

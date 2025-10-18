@@ -4,12 +4,17 @@
   config,
   ...
 }:
+let
+  cfg = config.hardware.cix.sky1;
+in
 {
-  nixpkgs.overlays = [
-    (import ./overlay.nix)
-  ];
+  config = lib.mkIf (cfg.enable && cfg.bspRelease == "2025.04") {
+    nixpkgs.overlays = [
+      (import ./overlay.nix)
+    ];
 
-  boot = {
-    kernelPackages = lib.mkOverride 900 pkgs.linuxPackages_cix;
+    boot = {
+      kernelPackages = lib.mkOverride 900 pkgs.linuxPackages_cix;
+    };
   };
 }

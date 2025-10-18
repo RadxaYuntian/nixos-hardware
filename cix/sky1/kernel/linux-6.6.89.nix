@@ -7,8 +7,8 @@
 
 let
   kver = "6.6.89";
-  rev = "fd1a9d06cef85f16a4dcb16061a9128437e235f4";
-  hash = "sha256-Qiersi0FZ77XK1dAXcxhIh3jkvR2S0dnfOcSrvGNCP4=";
+  rev = "915a940499a619f362d7e4b2203c105313941f88";
+  hash = "sha256-d3nVowJlsB26FwRH/lA2b4U2u5orV3SwEvk3xVArrgc=";
 
   args' =
     {

@@ -7,38 +7,35 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "cix_gpu_kernel";
+  pname = "cix_vpu_driver";
   version = "2025.09";
 
   src = fetchFromGitLab {
     owner = "cix-linux";
-    repo = "cix_opensource/gpu_kernel";
-    rev = "b8eee14f46f2aba8cdcf524a406a29ec75a0d8db";
-    hash = "sha256-8QN5y3Vy/WF7cAWDNCDwe5obS2IzdI3FmXgRWAvWeZA=";
+    repo = "cix_opensource/vpu_driver";
+    rev = "41682d980377ea5c94280cd936238258a2116589";
+    hash = "sha256-UAl4acdYwMHi4SM6VlRsZqTqACeaaOhr36sMTM52Nfw=";
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   makeFlags = kernelModuleMakeFlags ++ [
+    "-C"
+    "driver"
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "M=$(PWD)/driver"
   ];
-  
-  enableParallelBuilding = true;
 
-  buildFlags = [
-    "all"
-  ];
+  enableParallelBuilding = true;
 
   installPhase = ''
     runHook preInstall
 
     BUILD_OUTPUT=(
-      base/arm/memory_group_manager/memory_group_manager.ko
-      base/arm/protected_memory_allocator/protected_memory_allocator.ko
-      gpu/arm/midgard/mali_kbase.ko
+      amvx.ko
     )
     for i in "''${BUILD_OUTPUT[@]}"; do
-      install -D drivers/$i $out/lib/modules/${kernel.modDirVersion}/$i
+      install -D driver/$i $out/lib/modules/${kernel.modDirVersion}/extra/$i
     done
 
     runHook postInstall

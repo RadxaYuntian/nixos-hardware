@@ -7,38 +7,48 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "cix_gpu_kernel";
-  version = "2025.09";
+  pname = "cix_npu_driver";
+  version = "5.11.0";
 
   src = fetchFromGitLab {
     owner = "cix-linux";
-    repo = "cix_opensource/gpu_kernel";
-    rev = "b8eee14f46f2aba8cdcf524a406a29ec75a0d8db";
-    hash = "sha256-8QN5y3Vy/WF7cAWDNCDwe5obS2IzdI3FmXgRWAvWeZA=";
+    repo = "cix_opensource/npu_driver";
+    rev = "a1b161f868f4019c4a1e5c843b0f5c93131e7726";
+    hash = "sha256-e5GIXzA+0x095H54I/T2QAfHVHOWY2dwJhCpdYUJF2k=";
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   makeFlags = kernelModuleMakeFlags ++ [
+    "-C"
+    "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "M=$(PWD)/driver"
+    "COMPASS_DRV_BTENVAR_KPATH=$(KDIR)"
+    "BUILD_AIPU_VERSION_KMD=BUILD_ZHOUYI_V3"
+    "COMPASS_DRV_BTENVAR_KMD_VERSION=5.11.0"
+		"BUILD_TARGET_PLATFORM_KMD=BUILD_PLATFORM_SKY1"
+		"BUILD_NPU_DEVFREQ=y"
   ];
-  
+
   enableParallelBuilding = true;
 
   buildFlags = [
-    "all"
+    "modules"
   ];
+
+  preBuild = ''
+    substituteInPlace driver/Makefile --replace-fail '$(PWD)' $PWD/driver
+  '';
 
   installPhase = ''
     runHook preInstall
 
     BUILD_OUTPUT=(
-      base/arm/memory_group_manager/memory_group_manager.ko
-      base/arm/protected_memory_allocator/protected_memory_allocator.ko
-      gpu/arm/midgard/mali_kbase.ko
+      aipu.ko
     )
     for i in "''${BUILD_OUTPUT[@]}"; do
-      install -D drivers/$i $out/lib/modules/${kernel.modDirVersion}/$i
+      install -D driver/$i $out/lib/modules/${kernel.modDirVersion}/extra/$i
     done
 
     runHook postInstall

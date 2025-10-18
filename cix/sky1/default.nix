@@ -12,10 +12,9 @@ in
     enable = lib.mkEnableOption "CIX Sky1 support";
   };
 
+  imports = lib.optional cfg.enable ./bsp/2025.09;
+
   config = lib.mkIf cfg.enable {
-    imports = [
-      ./bsp/2025.09
-    ];
 
     hardware.cix.enable = true;
   };

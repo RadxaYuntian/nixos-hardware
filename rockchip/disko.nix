@@ -15,7 +15,6 @@ in
   config = lib.mkIf cfg.enable {
     disko = {
       imageBuilder = {
-        extraRootModules = [ "bcachefs" ];
         extraPostVM = cfg.diskoExtraPostVM;
       };
       memSize = lib.mkDefault 4096; # Default 1024 MB will throw "Cannot allocate memory" error
@@ -29,7 +28,7 @@ in
               type = "EF00";
               # Firmware backoff
               start = "16M";
-              size = "500M";
+              size = "1G";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -40,20 +39,26 @@ in
             root = {
               size = "100%";
               content = {
-                type = "filesystem";
-                format = "bcachefs";
-                mountpoint = "/";
+                type = "btrfs";
                 extraArgs = [
-                  "--metadata_checksum=xxhash"
-                  "--data_checksum=xxhash"
-                  "--compression=zstd"
-                  "--background_compression=zstd"
-                  "--str_hash=siphash"
-                  "--wide_macs"
-                  "--encrypted"
-                  "--no_passphrase"
-                  "--discard"
+                  "-f"
                 ];
+                subvolumes = {
+                  "/@" = {
+                    mountpoint = "/";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "/@nix" = {
+                    mountpoint = "/nix";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                };
               };
             };
           };

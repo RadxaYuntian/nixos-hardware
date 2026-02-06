@@ -22,7 +22,9 @@ definition of "support":
 ## Characteristic of the default profiles
 
 * Using `linuxPackages_latest`
-* `bcachefs` rootfs with zstd compression and password-less encryption enabled
+* `btrfs` rootfs with zstd compression and subvolumes enabled
+  - Previously, the default rootfs is `bcachefs`.  
+    We no longer recommend it since its removal from upstream kernel.
 * EFI boot chain provided by `systemd-boot`
 * Default serial console enabled with baud rate matches the platform firmware
 * No automatic partition expansion, as the module is only focusing on hardware
@@ -69,6 +71,7 @@ Below is an annoated flake example to create the initial boot image.
 
           disko.nixosModules.disko                  # disko usage is optional in the running system, but we need it to generate the initial boot image.
           "${nixos-hardware}/radxa/disko.nix"       # Common Radxa Disko profile. It is system-agnostic.
+                                                    # We recommend having your own disk configuration in production systems.
           {
             disko = {
               imageBuilder = {

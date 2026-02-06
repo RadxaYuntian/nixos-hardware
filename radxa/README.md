@@ -42,7 +42,7 @@ Below is an annoated flake example to create the initial boot image.
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unfree.url = "github:numtide/nixpkgs-unfree/nixos-unstable";
   };
 
@@ -73,12 +73,12 @@ Below is an annoated flake example to create the initial boot image.
             disko = {
               imageBuilder = {
                 # Avoid double emulation to significantly speed up image building process.
-                # Update the system according to your host system.
-                # See https://github.com/nix-community/disko/issues/856
-                qemu = nixpkgs.legacyPackages.x86_64-linux.qemu + "/bin/qemu-system-aarch64 -M virt -cpu cortex-a57";
+                enableBinfmt = true;
+                pkgs = nixpkgs.legacyPackages.x86_64-linux;
+                kernelPackages = nixpkgs.legacyPackages.x86_64-linux.linuxPackages_latest;
               };
-              # Default image size is 2G for a small basic CLI system.
-              # devices.disk.main.imageSize = "2G";
+              # Default image size is 3G for a small basic CLI system.
+              # devices.disk.main.imageSize = "3G";
             };
 
             # Override the default bootloader with a cross built one.
@@ -97,7 +97,7 @@ Below is an annoated flake example to create the initial boot image.
             };
             services.openssh.enable = true;
             networking.hostName = "radxa";
-            system.stateVersion = "24.11";
+            system.stateVersion = "25.11";
           }
         ];
       };

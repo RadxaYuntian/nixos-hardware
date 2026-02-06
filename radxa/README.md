@@ -35,6 +35,8 @@ Below is an annoated flake example to create the initial boot image.
 {
   description = "Example NixOS configurations for Radxa product";
   # To build, run `nix build .#nixosConfigurations.radxa.config.system.build.diskoImages`
+  # You can run `cachix use radxa` on your build machine to enable Radxa Cachix binary cache,
+  # which can help speed up image build.
 
   inputs = {
     disko.url = "github:nix-community/disko";
@@ -84,6 +86,9 @@ Below is an annoated flake example to create the initial boot image.
             # For NixOS, please add `boot.binfmt.emulatedSystems = [ "aarch64-linux" ];` to your system configuration.
             # Read the device module to see how it was configured.
             # hardware.rockchip.platformFirmware = nixpkgs-unfree.legacyPackages.x86_64-linux.pkgsCross.aarch64-multiplatform.ubootRock4CPlus;
+
+            # Enable Radxa Cachix binary cache for some big custom packages
+            hardware.radxa.cachix.enable = true;
 
             users.users.radxa = {
               isNormalUser = true;

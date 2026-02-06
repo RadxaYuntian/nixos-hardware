@@ -8,6 +8,10 @@ let
   cfg = config.hardware.radxa;
 in
 {
+  imports = [
+    ../rockchip
+  ];
+
   options.hardware.radxa = {
     enable = lib.mkEnableOption "Radxa system support";
     cachix.enable = lib.mkEnableOption ''

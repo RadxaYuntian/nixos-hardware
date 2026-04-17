@@ -42,4 +42,5 @@ final: _prev: {
   linux_latest_cix = final.linuxKernel.kernels.linux_latest_cix;
 
   cix_vaapi_driver = final.callPackage ./pkgs/cix_vaapi_driver { };
+  cix_libva = final.callPackage ./pkgs/cix_libva { };
 }

@@ -33,7 +33,7 @@ in
       firmware = with config.boot.kernelPackages; [
         cix_vpu_driver
       ];
-      # graphics.extraPackages = [ pkgs.cix_vaapi_driver ];
+      graphics.extraPackages = [ pkgs.cix_vaapi_driver ];
     };
   };
 }

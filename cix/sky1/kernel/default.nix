@@ -22,16 +22,16 @@ let
 
 in
 
-linux.overrideAttrs (
-  finalAttrs: previousAttrs: {
+linux.override (
+  args
+  // {
     defconfig = "defconfig cix.config";
 
-    kernelPatches = [
-      kPatches
-    ];
+    kernelPatches = kPatches ++ (args.kernelPatches or [ ]);
 
     prePatch = ''
       cp ${cix-linux-main}/config/config-${branch}.defconfig arch/arm64/configs/cix.config
     ''; # postPatch is already occupied
   }
+  // (args.argsOverride or { })
 )

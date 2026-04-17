@@ -17,7 +17,7 @@
     hardware = {
       radxa.enable = true;
       cix = {
-        sky1.enable = true;
+        sky1.enable = lib.mkDefault true;
       };
     };
   };
